@@ -29,6 +29,18 @@ function updateConversion() {
           </div>`;
       break;
 
+    case "masa":
+      conversionContent.innerHTML = `
+          <div class="form-group">
+            <label for="kilogramInput">Kilogramo:</label>
+            <input type="number" class="form-control" id="kilogramInput" oninput="convertMass('kilogram')">
+          </div>
+          <div class="form-group">
+            <label for="gramInput">Gramo:</label>
+            <input type="number" class="form-control" id="gramInput" oninput="convertMass('gram')">
+          </div>`;
+      break;
+
     default:
       break;
   }
@@ -64,6 +76,21 @@ function convertPressure(from) {
     const bar = parseFloat(barInput.value);
     const pascal = bar / pascalToBar;
     pascalInput.value = isNaN(pascal) ? "" : pascal.toExponential(1);
+  }
+}
+
+function convertMass(from) {
+  const kilogramInput = document.getElementById("kilogramInput");
+  const gramInput = document.getElementById("gramInput");
+
+  if (from === "kilogram") {
+    const kilogram = parseFloat(kilogramInput.value);
+    const gram = kilogram * 1000;
+    gramInput.value = isNaN(gram) ? "" : gram.toFixed(1);
+  } else if (from === "gram") {
+    const gram = parseFloat(gramInput.value);
+    const kilogram = gram / 1000;
+    kilogramInput.value = isNaN(kilogram) ? "" : kilogram.toFixed(1);
   }
 }
 
