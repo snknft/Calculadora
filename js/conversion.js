@@ -1,4 +1,3 @@
-
 // Función para actualizar las conversiones según la opción seleccionada
 function updateConversion() {
   const selectedOption = document.getElementById("selectConversion").value;
@@ -18,6 +17,18 @@ function updateConversion() {
         </div>`;
       break;
 
+    case "presion":
+      conversionContent.innerHTML = `
+          <div class="form-group">
+            <label for="pascalInput">Pascal:</label>
+            <input type="number" class="form-control" id="pascalInput" oninput="convertPressure('pascal')">
+          </div>
+          <div class="form-group">
+            <label for="barInput">Bar:</label>
+            <input type="number" class="form-control" id="barInput" oninput="convertPressure('bar')">
+          </div>`;
+      break;
+
     default:
       break;
   }
@@ -30,16 +41,31 @@ function convertTemperature(from) {
 
   if (from === "celsius") {
     const celsius = parseFloat(celsiusInput.value);
-    const fahrenheit = (celsius * 9 / 5) + 32;
+    const fahrenheit = (celsius * 9) / 5 + 32;
     fahrenheitInput.value = isNaN(fahrenheit) ? "" : fahrenheit.toFixed(1);
   } else if (from === "fahrenheit") {
     const fahrenheit = parseFloat(fahrenheitInput.value);
-    const celsius = (fahrenheit - 32) * 5 / 9;
+    const celsius = ((fahrenheit - 32) * 5) / 9;
     celsiusInput.value = isNaN(celsius) ? "" : celsius.toFixed(1);
   }
 }
 
+function convertPressure(from) {
+  const pascalInput = document.getElementById("pascalInput");
+  const barInput = document.getElementById("barInput");
 
+  const pascalToBar = 1e-5;
+
+  if (from === "pascal") {
+    const pascal = parseFloat(pascalInput.value);
+    const bar = pascal * pascalToBar;
+    barInput.value = isNaN(bar) ? "" : bar.toExponential(5);
+  } else if (from === "bar") {
+    const bar = parseFloat(barInput.value);
+    const pascal = bar / pascalToBar;
+    pascalInput.value = isNaN(pascal) ? "" : pascal.toExponential(1);
+  }
+}
 
 // llarmar a la funcion
 updateConversion();
