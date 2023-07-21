@@ -41,6 +41,18 @@ function updateConversion() {
           </div>`;
       break;
 
+    case "longitud":
+      conversionContent.innerHTML = `
+          <div class="form-group">
+            <label for="meterInput">Metro:</label>
+            <input type="number" class="form-control" id="meterInput" oninput="convertLength('meter')">
+          </div>
+          <div class="form-group">
+            <label for="centimeterInput">Centímetro:</label>
+            <input type="number" class="form-control" id="centimeterInput" oninput="convertLength('centimeter')">
+          </div>`;
+      break;
+
     default:
       break;
   }
@@ -91,6 +103,21 @@ function convertMass(from) {
     const gram = parseFloat(gramInput.value);
     const kilogram = gram / 1000;
     kilogramInput.value = isNaN(kilogram) ? "" : kilogram.toFixed(1);
+  }
+}
+
+function convertLength(from) {
+  const meterInput = document.getElementById("meterInput");
+  const centimeterInput = document.getElementById("centimeterInput");
+
+  if (from === "meter") {
+    const meter = parseFloat(meterInput.value);
+    const centimeter = meter * 100;
+    centimeterInput.value = isNaN(centimeter) ? "" : centimeter.toFixed(1);
+  } else if (from === "centimeter") {
+    const centimeter = parseFloat(centimeterInput.value);
+    const meter = centimeter / 100;
+    meterInput.value = isNaN(meter) ? "" : meter.toFixed(1);
   }
 }
 
